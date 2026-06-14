@@ -16,9 +16,9 @@ echo -e "${B}*** Attendance Tracker - project Initializer ***${NC}\n"
 
 # Get the target folder tag from input or prompt
 if [ $# -gt 0 ]; then
-	USER_TAG="$1"
+    USER_TAG="$1"
 else 
-	read -rp "Enter a project identifier suffix (e.g., cohort_A): " USER_TAG
+    read -rp "Enter a project identifier suffix (e.g., cohort_A): " USER_TAG
 fi
 
 # Simple validation check
@@ -36,14 +36,14 @@ emergency_cleanup() {
     log_warn "interruption caught! Bundling workspace data..."
 
     if [ -d "$PROJECT_DIR" ]; then
-	 #package whatever is built so far, drop errors if empty
-	 tar -czf "${ARCHIVE_NAME}.tar.gz" "$PROJECT_DIR" 2>/dev/null \
-		 && log_ok "State successfully archived -> ${ARCHIVE_NAME}.tar.gz" \
-		 || log_warn "Could not create backup archive."
+     #package whatever is built so far, drop errors if empty
+     tar -czf "${ARCHIVE_NAME}.tar.gz" "$PROJECT_DIR" 2>/dev/null \
+         && log_ok "State successfully archived -> ${ARCHIVE_NAME}.tar.gz" \
+         || log_warn "Could not create backup archive."
 
-	 #clear out workspace to avoid half-baked files cluttering things
-	 rm -rf "$PROJECT_DIR"
-	 log_ok "Cleaned up partial build directory: ${PROJECT_DIR}"
+     #clear out workspace to avoid half-baked files cluttering things
+     rm -rf "$PROJECT_DIR"
+     log_ok "Cleaned up partial build directory: ${PROJECT_DIR}"
     fi  
 
     echo -e "${R}process killed early.${NC}"
@@ -56,10 +56,10 @@ log_info "Setting up root folder at: ${PROJECT_DIR}"
 
 #Block conflicts if folder is already occupied
 if [ -d "$PROJECT_DIR" ]; then
-	log_warn "The path '${PROJECT_DIR}' is already occupied by a directory."
-	read -rp "Do you want to overwrite it entirely? (y/N): " FORCE_DROP
-	if [[ "$FORCE_DROP" =~ ^[Yy]$ ]]; then
-	       rm -rf "$PROJECT_DIR"
+    log_warn "The path '${PROJECT_DIR}' is already occupied by a directory."
+    read -rp "Do you want to overwrite it entirely? (y/N): " FORCE_DROP
+    if [[ "$FORCE_DROP" =~ ^[Yy]$ ]]; then
+           rm -rf "$PROJECT_DIR"
                log_info "old directory wiped out clean."
         else
                log_err "Halting execution to protect current directory contents."
@@ -69,7 +69,7 @@ fi
 
 # Build out baseline architecture paths
 mkdir -p "${PROJECT_DIR}/Helpers" "${PROJECT_DIR}/reports" || {
-	log_err "permission denied or storage failure. Failed creating directory skeleton."
+    log_err "permission denied or storage failure. Failed creating directory skeleton."
         exit 1
 }
 # Generating the python core application file
@@ -160,22 +160,22 @@ if [[ "$CHANGE_CFG" =~ ^[Yy]$ ]]; then
 
      # input validation collector loop
      fetch_clean_numeric() {
-	     local SEED_PROMPT="$1"
-	     local TYPED_IN=""
-	     while true; do
-		     read -rp "$SEED_PROMPT" TYPED_IN
-		     # Return nothing if they just skip with enter key
-		     if [ -z "$TYPED_IN" ]; then
-			     echo ""
-			     return
-	             fi
-		     # Ensure safe digits within reasonable limits
-		     if [[ "$TYPED_IN" =~ ^[0-9]+$ ]] && [ "$TYPED_IN" -ge 1 ] && [ "$TYPED_IN" -le 99 ];then
-			     echo "$TYPED_IN"
-			     return
-		     fi
-		     log_warn "Bad value input ('${TYPED_IN}'). Use whole integers from 1 up to 99."
-		  done
+         local SEED_PROMPT="$1"
+         local TYPED_IN=""
+         while true; do
+             read -rp "$SEED_PROMPT" TYPED_IN
+             # Return nothing if they just skip with enter key
+             if [ -z "$TYPED_IN" ]; then
+                 echo ""
+                 return
+                 fi
+             # Ensure safe digits within reasonable limits
+             if [[ "$TYPED_IN" =~ ^[0-9]+$ ]] && [ "$TYPED_IN" -ge 1 ] && [ "$TYPED_IN" -le 99 ];then
+                 echo "$TYPED_IN"
+                 return
+             fi
+             log_warn "Bad value input ('${TYPED_IN}'). Use whole integers from 1 up to 99."
+          done
      }
 
      NEW_WARN=$(fetch_clean_numeric "Enter warning rate [1-99] (Leave blank to keep default): ")
@@ -186,7 +186,7 @@ if [ -n "$NEW_WARN" ];then
       sed -i "s/\"warning\": [0-9]*/\"warning\": ${NEW_WARN}/" "$TARGET_CONF"
       log_ok "Warning point updated to ${NEW_WARN}%"
 else
-	log_info "warning point left unchanged."
+    log_info "warning point left unchanged."
 fi
 
 if [ -n "$NEW_FAIL" ]; then
@@ -203,37 +203,37 @@ fi
 echo -e "\n${B}--- Environment Sanity Validation ---${NC}"
 
 if python3 --version &>/dev/null;then
-	CURRENT_PY_VER=$(python3 --version 2>&1)
-	log_ok "python 3 environment validation: ${CURRENT_PY_VER}"
+    CURRENT_PY_VER=$(python3 --version 2>&1)
+    log_ok "python 3 environment validation: ${CURRENT_PY_VER}"
 else
-	log_warn "python3 is missing on this machine. This script will break if run."
-	log_warn "Run 'sudo apt install python3' to patch this error."
+    log_warn "python3 is missing on this machine. This script will break if run."
+    log_warn "Run 'sudo apt install python3' to patch this error."
 fi
 
 echo ""
 log_info "Verifying directory file maps..."
 V_OK=true
 CHECK_MAP=(
-	"${PROJECT_DIR}/attendance_checker.py"
-	"${PROJECT_DIR}/Helpers/assets.csv"
-	"${PROJECT_DIR}/Helpers/config.json"
-	"${PROJECT_DIR}/reports/reports.log"
+    "${PROJECT_DIR}/attendance_checker.py"
+    "${PROJECT_DIR}/Helpers/assets.csv"
+    "${PROJECT_DIR}/Helpers/config.json"
+    "${PROJECT_DIR}/reports/reports.log"
 )
 
 for MAP_ITEM in "${CHECK_MAP[@]}"; do
-	if [[ -e "$MAP_ITEM" ]]; then
-	      log_ok "Verified file path -> ${MAP_ITEM}"
-	      
+    if [[ -e "$MAP_ITEM" ]]; then
+          log_ok "Verified file path -> ${MAP_ITEM}"
+          
       else
-	    log_err "Missing resource -> ${MAP_ITEM}"
-	    V_OK=false
-	fi
+        log_err "Missing resource -> ${MAP_ITEM}"
+        V_OK=false
+    fi
  done
 
  if [ "$V_OK" = true ]; then
-	 log_ok "All component pathways validated. Build complete."
+     log_ok "All component pathways validated. Build complete."
 else
-	log_err "Workspace mismatch flagged. Double-check local execution permissions."
+    log_err "Workspace mismatch flagged. Double-check local execution permissions."
 fi
 
 echo -e "\n${B}=== Deployment Workspace Configured ===${NC}"
