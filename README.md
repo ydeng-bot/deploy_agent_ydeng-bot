@@ -115,7 +115,7 @@ This prevents workspace clutter and data loss.
 ### Clone Repository
 
 ```bash
-git clone https:https://github.com/ydeng-bot/deploy_agent_ydeng-bot.git
+git clone https://github.com/ydeng-bot/deploy_agent_ydeng-bot.git
 
 cd deploy_agent_ydeng-bot
 ```
