@@ -276,27 +276,6 @@ This displays the archived contents.
 
 ---
 
-## Version Control Workflow
-
-Development was performed using Git and feature branches.
-
-Typical workflow:
-
-```bash
-git checkout -b feature-branch
-
-git add .
-git commit -m "Implemented feature"
-
-git checkout main
-
-git merge feature-branch
-```
-
-The repository maintains a clear commit history showing incremental development and testing.
-
----
-
 ## Demonstration Video
 
 The accompanying video demonstrates:
