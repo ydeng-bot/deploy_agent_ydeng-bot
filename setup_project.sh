@@ -72,6 +72,12 @@ mkdir -p "${PROJECT_DIR}/Helpers" "${PROJECT_DIR}/reports" || {
     log_err "permission denied or storage failure. Failed creating directory skeleton."
         exit 1
 }
+
+touch "${PROJECT_DIR}/attendance_checker.py"
+touch "${PROJECT_DIR}/Helpers/assets.csv"
+touch "${PROJECT_DIR}/Helpers/config.json"
+touch "${PROJECT_DIR}/reports/reports.log"
+
 # Generating the python core application file
 cat > "${PROJECT_DIR}/attendance_checker.py" << 'EOF'
 import csv
