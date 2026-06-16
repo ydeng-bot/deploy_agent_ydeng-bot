@@ -110,25 +110,6 @@ This prevents workspace clutter and data loss.
 
 ---
 
-## Installation
-
-### Clone Repository
-
-```bash
-git clone https://github.com/ydeng-bot/deploy_agent_ydeng-bot.git
-
-cd deploy_agent_ydeng-bot
-```
-
-### Make Script Executable
-
-```bash
-chmod +x setup_project.sh
-```
-
----
-
-## Running the Script
 
 ### Interactive Mode
 
